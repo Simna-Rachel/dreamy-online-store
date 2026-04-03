@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+body {
+    background-color: #FDEEF4;
+    color: #2B2B2B;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* Marquee - Consistent with Home/Tops */
+.marquee {
+    background: white;
+    border-bottom: 2px solid #A0D2EB;
+    overflow: hidden;
+    padding: 10px 0;
+    display: flex;
+}
+
+.marquee-content {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 20s linear infinite;
+}
+
+.marquee-content span {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #A0D2EB;
+    padding-right: 50px;
+}
+
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* Login Layout */
+/* Update these in login.css */
+.login-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px; /* Increased padding for breathing room */
+    background: radial-gradient(circle, #ffe6f2 0%, #fdeef4 100%);
+    min-height: calc(100vh - 100px); /* Adjust based on your header/footer height */
+}
+
+.login-window {
+    background: white;
+    border: 3px solid #A0D2EB;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 12px 12px 0px #E5A9E0;
+    border-radius: 4px;
+    margin: auto; /* Keeps it centered */
+}
+
+.window-header {
+    background: #f8f9fa;
+    border-bottom: 2px solid #A0D2EB;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dots { display: flex; gap: 6px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid #ccc; }
+.pink { background: #FFD1DC; }
+.blue { background: #A0D2EB; }
+.window-title { font-size: 0.75rem; font-weight: 700; color: #2B2B2B; }
+
+.login-content {
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.login-logo {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #2B2B2B;
+    text-shadow: 2px 2px 0px #FFD1DC;
+}
+
+.login-subtitle {
+    font-size: 0.8rem;
+    color: #A0D2EB;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+/* Form Styling */
+.login-form {
+    text-align: left;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #2B2B2B;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #FDEEF4;
+    background: #fdfdfd;
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #A0D2EB;
+    background: white;
+}
+
+.login-submit-btn {
+    width: 100%;
+    background: white;
+    border: 2px solid #E5A9E0;
+    padding: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.login-submit-btn:hover {
+    background: #FFD1DC;
+    transform: translate(-3px, -3px);
+    box-shadow: 4px 4px 0px #A0D2EB;
+}
+
+.login-footer {
+    margin-top: 25px;
+    font-size: 0.75rem;
+}
+
+.login-footer a {
+    text-decoration: none;
+    color: #A0D2EB;
+    transition: 0.2s;
+}
+
+.login-footer a:hover {
+    color: #E5A9E0;
+    text-decoration: underline;
+}

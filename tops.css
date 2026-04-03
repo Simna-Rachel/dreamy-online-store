@@ -1,0 +1,233 @@
+/* 1. GLOBAL RESET - KILLS ALL UGLY BLUE/PURPLE LINES */
+a, a:visited, a:hover, a:active {
+    text-decoration: none !important;
+    color: inherit;
+    outline: none !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+body {
+    background-color: #FDEEF4;
+    color: #2B2B2B;
+    overflow-x: hidden;
+}
+
+/* MARQUEE */
+.marquee {
+    background: white;
+    border-bottom: 2px solid #A0D2EB;
+    overflow: hidden;
+    padding: 10px 0;
+    display: flex;
+}
+
+.marquee-content {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 20s linear infinite;
+}
+
+.marquee-content span {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #A0D2EB;
+    padding-right: 50px;
+}
+
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: white;
+    border-bottom: 2px solid #E5A9E0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo { font-weight: 700; font-size: 1.4rem; }
+.nav-links { list-style: none; display: flex; gap: 30px; align-items: center; }
+.nav-links a { font-weight: 500; font-size: 0.9rem; transition: 0.3s; }
+.nav-links a:hover, .nav-links a.active { color: #A0D2EB; }
+
+.account-btn a {
+    background: #FFD1DC;
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid #E5A9E0;
+}
+
+/* CATEGORY HEADER */
+.category-header { padding: 40px 20px; display: flex; justify-content: center; }
+.category-window { background: white; border: 2px solid #A0D2EB; width: 100%; max-width: 900px; box-shadow: 8px 8px 0px #E5A9E0; border-radius: 8px; overflow: hidden; }
+.window-header { background: #f8f9fa; border-bottom: 2px solid #A0D2EB; padding: 8px 15px; display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: bold; }
+.dots { display: flex; gap: 5px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; border: 1px solid #ddd; }
+.pink { background: #FFD1DC; }
+.blue { background: #A0D2EB; }
+
+.category-banner {
+    padding: 60px;
+    text-align: center;
+    background: linear-gradient(45deg, #fff 25%, #fdeef4 25%, #fdeef4 50%, #fff 50%, #fff 75%, #fdeef4 75%, #fdeef4 100%);
+    background-size: 40px 40px;
+}
+.category-banner h1 { font-size: 2.5rem; text-shadow: 2px 2px 0px #A0D2EB; }
+
+/* PRODUCT GRID */
+.container { padding: 50px; max-width: 1200px; margin: 0 auto; }
+.product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+
+.window-card { background: white; border: 2px solid #A0D2EB; box-shadow: 6px 6px 0px #E5A9E0; transition: 0.3s; }
+.window-card:hover { transform: scale(1.02); }
+
+.product-img { width: 100%; aspect-ratio: 3 / 4; overflow: hidden; border-bottom: 2px solid #A0D2EB; }
+.product-img img { width: 100%; height: 100%; object-fit: cover; }
+/* Container needs to be the anchor */
+.product-img-container {
+    position: relative;
+    overflow: visible; /* Allows sticker to poke out if needed */
+}
+
+.stock-sticker {
+    position: absolute;
+    bottom: -15px; /* Moves it down to overlap the info section */
+    right: 10px;
+    z-index: 20;
+    
+    /* Pastel Blue & Pink Theme */
+    background-color: #A0D2EB; 
+    color: #2B2B2B;
+    
+    /* Starburst Shape */
+    width: 85px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.65rem;
+    font-weight: 900;
+    line-height: 1.1;
+    
+    /* Jagged Edge using clip-path */
+    clip-path: polygon(100% 50%, 90% 65%, 95% 80%, 80% 80%, 75% 95%, 60% 90%, 50% 100%, 40% 90%, 25% 95%, 20% 80%, 5% 80%, 10% 65%, 0% 50%, 10% 35%, 5% 20%, 20% 20%, 25% 5%, 40% 10%, 50% 0%, 60% 10%, 75% 5%, 80% 20%, 95% 20%, 90% 35%);
+    
+    /* Aesthetic touches */
+    transform: rotate(12deg);
+    filter: drop-shadow(4px 4px 0px #FFD1DC); /* Soft pastel pink shadow */
+    transition: 0.3s ease-in-out;
+    cursor: default;
+}
+
+.stock-sticker:hover {
+    transform: rotate(-5deg) scale(1.1);
+}
+
+/* Out of Stock Variation */
+.stock-sticker.out-of-stock {
+    background-color: #F8F9FA;
+    color: #999;
+    filter: drop-shadow(4px 4px 0px #A0D2EB);
+    font-size: 0.6rem;
+}
+.product-info { padding: 20px; text-align: center; }
+.price { color: #A0D2EB; font-weight: 700; margin-bottom: 15px; }
+
+/* THE ADD TO CART BUTTON STYLE */
+.add-btn {
+    display: inline-block;
+    width: 90%;            
+    padding: 12px 0;       
+    margin: 10px auto;
+    background-color: #fffafc; 
+    border: 1px solid #e2b1d6; 
+    color: #000000 !important; 
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+    text-decoration: none !important;
+}
+
+.add-btn:visited {
+    color: #000000 !important;
+}
+
+.add-btn:hover {
+    background-color: #fce4ec; 
+    box-shadow: 2px 2px 0px #b3e5fc; 
+}
+
+.nav-links li.account-btn a {
+    /* Existing pill styles... */
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0px rgba(229, 169, 224, 0);
+    animation: pillPulse 3s infinite;
+}
+
+@keyframes pillPulse {
+    0% { box-shadow: 0 0 0px rgba(229, 169, 224, 0.4); }
+    50% { box-shadow: 0 0 15px rgba(229, 169, 224, 0.7); }
+    100% { box-shadow: 0 0 0px rgba(229, 169, 224, 0.4); }
+}
+
+.nav-links li.account-btn a:hover {
+    transform: scale(1.05);
+    letter-spacing: 1px;
+}
+
+
+.window-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 8px 8px 0px #A0D2EB, -2px -2px 0px #FFD1DC; /* Double shadow effect */
+}
+
+.window-title {
+    transition: 0.3s;
+}
+
+.window-card:hover .window-title {
+    color: #A0D2EB;
+    text-shadow: 1px 1px #FFD1DC;
+}
+
+.add-btn {
+    transition: all 0.4s cubic-bezier(0.150, 0.680, 0.20, 1.170); /* Bouncy effect */
+}
+
+.add-btn:hover {
+    letter-spacing: 2px;
+    background-color: #fce4ec !important;
+    color: rgb(0, 0, 0) !important;
+    box-shadow: 0 0 20px rgba(160, 210, 235, 0.6);
+    transform: scale(1.02);
+}
+/* BUY NOW BUTTON */
+.buy-now-btn {
+    background-color: #A0D2EB !important;
+    border-color: #7bbbd8 !important;
+    color: #fff !important;
+    margin-top: 8px;
+}
+.buy-now-btn:hover {
+    background-color: #7bbbd8 !important;
+    color: #fff !important;
+    box-shadow: 0 0 20px rgba(160, 210, 235, 0.7);
+    letter-spacing: 2px;
+}

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Track Your Delivery</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        .notifications-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .notifications-section h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notification-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #0099cc;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .notification-item.shipped {
+            border-left-color: #ffc107;
+            background: #fffbf0;
+        }
+
+        .notification-item.delivered {
+            border-left-color: #28a745;
+            background: #f0f8f5;
+        }
+
+        .notification-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-content p {
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .notification-time {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .no-notifications {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+            font-size: 14px;
+        }
+
+        .orders-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .orders-section h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .order-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .order-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: #0099cc;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .order-id {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0099cc;
+        }
+
+        .order-date {
+            color: #999;
+            font-size: 13px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-confirmed {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-shipped {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status-delivered {
+            background-color: #cfe2ff;
+            color: #084298;
+            border: 1px solid #b6d4fe;
+        }
+
+        .status-cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .order-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label {
+            color: #999;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            color: #333;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .delivery-timeline {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            padding: 10px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 0;
+        }
+
+        .timeline-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #e0e0e0;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-step.active .timeline-dot {
+            background: #0099cc;
+            border-color: #0099cc;
+            box-shadow: 0 0 0 4px rgba(0, 153, 204, 0.1);
+        }
+
+        .timeline-step.completed .timeline-dot {
+            background: #28a745;
+            border-color: #28a745;
+        }
+
+        .timeline-label {
+            font-size: 12px;
+            color: #999;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .timeline-step.active .timeline-label {
+            color: #0099cc;
+            font-weight: 600;
+        }
+
+        .timeline-step.completed .timeline-label {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .payment-info {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            background: #f0f8ff;
+            border-left: 3px solid #0099cc;
+            font-size: 13px;
+            color: #333;
+        }
+
+        .payment-info strong {
+            color: #0099cc;
+        }
+
+        .no-orders {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .order-details {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Track Your Orders</h1>
+
+        <!-- Notifications Section -->
+        <div class="notifications-section">
+            <h2>🔔 Recent Updates</h2>
+            <div id="notificationsContainer"></div>
+        </div>
+
+        <!-- Orders Section -->
+        <div class="orders-section">
+            <h2>My Orders</h2>
+            <div id="ordersContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // Load customer orders
+        function loadCustomerOrders() {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const container = document.getElementById('ordersContainer');
+
+            if (orders.length === 0) {
+                container.innerHTML = '<div class="no-orders">No orders yet. Start shopping!</div>';
+                return;
+            }
+
+            container.innerHTML = orders.map(order => {
+                const statusSteps = ['confirmed', 'shipped', 'delivered'];
+                const currentIndex = statusSteps.indexOf(order.status);
+
+                return `
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-id">Order #${order.id}</div>
+                                <div class="order-date">${order.date}</div>
+                            </div>
+                            <span class="status-badge status-${order.status}">${order.status.toUpperCase()}</span>
+                        </div>
+
+                        <div class="order-details">
+                            <div class="detail-item">
+                                <div class="detail-label">Items</div>
+                                <div class="detail-value">${order.items.map(item => item.name).join(', ') || 'N/A'}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Total Amount</div>
+                                <div class="detail-value">$${parseFloat(order.total).toFixed(2)}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Payment Status</div>
+                                <div class="detail-value">
+                                    ${order.paymentStatus === 'received' ? '✓ Received' : '⏳ Pending (After Delivery)'}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="delivery-timeline">
+                            <div class="timeline">
+                                ${['confirmed', 'shipped', 'delivered'].map((step, index) => `
+                                    <div class="timeline-step ${currentIndex >= index ? 'completed' : ''} ${order.status === step ? 'active' : ''}">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-label">${step.charAt(0).toUpperCase() + step.slice(1)}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="payment-info">
+                            💰 <strong>Payment Policy:</strong> Your payment will be received once your order is delivered.
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Load customer notifications
+        function loadNotifications() {
+            const notifications = JSON.parse(localStorage.getItem('customerNotifications')) || [];
+            const container = document.getElementById('notificationsContainer');
+
+            if (notifications.length === 0) {
+                container.innerHTML = '<div class="no-notifications">No notifications yet</div>';
+                return;
+            }
+
+            // Sort by timestamp, newest first
+            notifications.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            container.innerHTML = notifications.map(notif => {
+                const time = new Date(notif.timestamp);
+                const timeString = time.toLocaleString();
+
+                return `
+                    <div class="notification-item ${notif.status}">
+                        <div class="notification-icon">${notif.icon}</div>
+                        <div class="notification-content">
+                            <p><strong>Order #${notif.orderId}</strong></p>
+                            <p>${notif.message}</p>
+                            <div class="notification-time">${timeString}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Load on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadCustomerOrders();
+            loadNotifications();
+        });
+
+        // Refresh every 3 seconds
+        setInterval(() => {
+            loadCustomerOrders();
+            loadNotifications();
+        }, 3000);
+    </script>
+</body>
+</html>
