@@ -306,5 +306,7 @@ Both pages feature:
 
 - **Educational Project** — This project was built as part of academic learning and is not a production-ready application.
 - **AI Assistance** — Built with the assistance of Google Gemini and Claude (Anthropic) as learning tools.
+
+- - **Author** — Simna Rachel
 - **Product Images** — Images used in this project were sourced from Pinterest and are not owned by me. Used here for educational/demo purposes only, not for commercial use.
 - **Local Setup Only** — This app runs on a local XAMPP environment and is not deployed live.
